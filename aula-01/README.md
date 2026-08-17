@@ -7,7 +7,7 @@
 
 ## Comandos Git praticados
 
-- [Liste os comandos Git que utilizou]
+- mkdir, git status, git commit -m, git push, touch, git fetch
 
 ## Comandos Docker praticados
 
