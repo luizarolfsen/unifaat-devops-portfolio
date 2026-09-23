@@ -1,0 +1,12 @@
+# Diretório de plugins e módulos baixados pelo Terraform
+.terraform/
+
+# Arquivos de estado — nunca versionar estado do Terraform
+*.tfstate
+*.tfstate.*
+
+# Arquivo de lock de dependências
+.terraform.lock.hcl
+
+# Arquivos de variáveis — podem conter segredos / credenciais
+*.tfvars
