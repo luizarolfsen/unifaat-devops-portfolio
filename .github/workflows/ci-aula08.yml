@@ -10,10 +10,6 @@ on:
       - 'Dockerfile'
       - '.github/workflows/ci-aula08.yml'
       - '.eslintrc.json'
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.gitignore'
   pull_request:
     branches: [main]
 
