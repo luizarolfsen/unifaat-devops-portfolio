@@ -92,3 +92,29 @@ jobs:
           curl -f http://localhost:3000/health || exit 1
           docker stop test-container
           docker rm test-container
+  verify-credentials:
+    name: Verify Credentials
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Verificar configuração AWS
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          echo "Verificando credenciais AWS..."
+          if [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ]; then
+            echo "✅ Credenciais AWS configuradas"
+            echo "Região: $AWS_DEFAULT_REGION"
+            # Com credenciais reais, aqui faria:
+            # aws sts get-caller-identity
+          else
+            echo "❌ Credenciais AWS NÃO configuradas"
+            exit 1
+          fi
