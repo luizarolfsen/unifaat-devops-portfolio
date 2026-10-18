@@ -49,14 +49,6 @@ app.post('/api/orders', (req, res) => {
   res.status(201).json(newOrder);
 });
 
-// Só inicia o servidor se não estiver em modo de teste
-if (process.env.NODE_ENV !== 'test') {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`TechNova API rodando na porta ${PORT}`);
-  });
-}
-
 app.delete('/api/orders/:id', (req, res) => {
   const index = orders.findIndex(o => o.id === parseInt(req.params.id));
   if (index === -1) {
@@ -65,5 +57,13 @@ app.delete('/api/orders/:id', (req, res) => {
   const deleted = orders.splice(index, 1);
   res.json({ message: 'Order deleted', order: deleted[0] });
 });
+
+// Só inicia o servidor se não estiver em modo de teste
+if (process.env.NODE_ENV !== 'test') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`TechNova API rodando na porta ${PORT}`);
+  });
+}
 
 module.exports = app;
