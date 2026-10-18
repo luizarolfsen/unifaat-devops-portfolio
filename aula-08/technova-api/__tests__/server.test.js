@@ -1,5 +1,12 @@
 const request = require('supertest');
-const app = require('../server');
+
+// Resetar o módulo antes de cada teste para garantir estado limpo
+let app;
+
+beforeEach(() => {
+  jest.resetModules();
+  app = require('../server');
+});
 
 describe('Health Check', () => {
   it('GET /health deve retornar status 200', async () => {
@@ -73,4 +80,3 @@ describe('DELETE /api/orders/:id', () => {
     expect(res.statusCode).toBe(404);
   });
 });
-

@@ -1,15 +1,6 @@
-# TechNova API
+# Portfólio DevOps — UniFAAT 2026-2
 
 ![CI Pipeline — Aula 08](https://github.com/luizarolfsen/unifaat-devops-portfolio/actions/workflows/ci-aula08.yml/badge.svg)
-
-API de gestão de pedidos da TechNova.
-
-## Quick Start
-
-```bash
-npm install
-npm start
-# Portfólio DevOps — UniFAAT 2026-2
 
 **Aluno:** Luiza Carneiro Rolfsen
 **RA:** 6325257 
@@ -25,6 +16,10 @@ Aqui documento minha evolução desde os fundamentos de Git e Docker até pipeli
 ## Estrutura
 
 - `aula-01/` — Fundamentos de Git e Docker
+- `aula-02/` — Docker Compose e variáveis de ambiente
+- `aula-03/` — Terraform e infraestrutura como código
+- `aula-04/` — AWS e credenciais
+- `aula-08/` — GitHub Actions e CI Pipelines ([TechNova API](aula-08/technova-api/))
 
 ## Aprendizados
 
