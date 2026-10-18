@@ -118,3 +118,57 @@ jobs:
             echo "❌ Credenciais AWS NÃO configuradas"
             exit 1
           fi
+  pr-comment:
+    name: PR Comment
+    needs: [lint, test, build]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Comentar resultado do CI no PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            // Evitar comentários duplicados
+            const botComment = comments.find(comment =>
+              comment.body.includes('## 🤖 CI Pipeline Results')
+            );
+
+            const body = `## 🤖 CI Pipeline Results
+
+            | Stage | Status |
+            |-------|--------|
+            | Lint (ESLint) | ✅ Passed |
+            | Tests (Jest) | ✅ Passed |
+            | Build (Docker) | ✅ Passed |
+
+            **Commit:** \`${context.sha.substring(0, 7)}\`
+            **Workflow:** [Ver detalhes](${context.payload.repository.html_url}/actions/runs/${context.runId})
+
+            ---
+            _Gerado automaticamente pelo CI Pipeline_`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body,
+              });
+            }
