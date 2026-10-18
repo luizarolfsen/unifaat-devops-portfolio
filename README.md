@@ -1,3 +1,14 @@
+# TechNova API
+
+![CI Pipeline — Aula 08](https://github.com/luizarolfsen/unifaat-devops-portfolio/actions/workflows/ci-aula08.yml/badge.svg)
+
+API de gestão de pedidos da TechNova.
+
+## Quick Start
+
+```bash
+npm install
+npm start
 # Portfólio DevOps — UniFAAT 2026-2
 
 **Aluno:** Luiza Carneiro Rolfsen
