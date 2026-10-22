@@ -95,7 +95,6 @@ function analyzeDiff(diffContent) {
   return findings;
 }
 
-```javascript
 function generateReport(findings) {
   if (findings.length === 0) {
     return `## 🤖 AI Code Review - TechNova
