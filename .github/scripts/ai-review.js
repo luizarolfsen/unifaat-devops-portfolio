@@ -76,6 +76,11 @@ function analyzeDiff(diffContent) {
     if (line.startsWith('+') && !line.startsWith('+++')) {
       const addedCode = line.substring(1);
 
+      // Ignorar linhas que são definições de padrões do próprio script
+      if (addedCode.trim().startsWith('pattern:') || addedCode.trim().startsWith('message:')) {
+        continue;
+      }
+
       for (const rule of SECURITY_PATTERNS) {
         if (rule.pattern.test(addedCode)) {
           findings.push({
